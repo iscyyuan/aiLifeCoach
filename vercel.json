@@ -23,5 +23,17 @@
       "src": "/(.*)",
       "dest": "src/server.js"
     }
+  ],
+  "regions": ["hkg1"],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "x-vercel-max-timeout",
+          "value": "60"
+        }
+      ]
+    }
   ]
 }
