@@ -21,7 +21,7 @@
     },
     {
       "src": "/chat",
-      "dest": "/api/server"
+      "dest": "/api/server.js"
     },
     {
       "src": "/(.*)",
