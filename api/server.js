@@ -21,6 +21,14 @@ if (!API_KEY || !API_URL) {
 
 app.post('/chat', async (req, res) => {
     try {
+        if (!req.body.message) {
+            throw new Error('消息内容不能为空');
+        }
+
+        if (!API_KEY || !API_URL) {
+            throw new Error('API配置缺失，请检查环境变量');
+        }
+
         const response = await axios({
             method: 'post',
             url: API_URL,
@@ -63,10 +71,25 @@ app.post('/chat', async (req, res) => {
     } catch (error) {
         console.error('API 错误:', error);
         
-        // 改进错误处理
-        const errorMessage = error.response?.data?.error || error.message || '服务器错误';
-        res.status(error.response?.status || 500).json({ 
-            error: errorMessage
+        let statusCode = 500;
+        let errorMessage = '服务器错误';
+
+        if (error.response) {
+            // API 响应错误
+            statusCode = error.response.status;
+            errorMessage = error.response.data?.error || error.message;
+        } else if (error.request) {
+            // 请求发送失败
+            statusCode = 503;
+            errorMessage = '无法连接到 API 服务';
+        } else {
+            // 其他错误
+            errorMessage = error.message;
+        }
+
+        res.status(statusCode).json({ 
+            error: errorMessage,
+            details: process.env.NODE_ENV === 'development' ? error.toString() : undefined
         });
     }
 });
