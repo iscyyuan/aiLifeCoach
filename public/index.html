@@ -74,16 +74,21 @@
     </script>
     <!-- 替换为模块化引入 -->
     <!-- 在 body 末尾修改 -->
-    <script type="module">
-        import { initChat } from './js/chat.js';
-        import { initUI } from './js/ui.js';
-        import { initStorage } from './js/storage.js';
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            initStorage();
-            initUI();
-            initChat();
-        });
+    <!-- 删除第一个 script 模块 -->
+        <script type="module">
+            import { initChat, addMessage } from './js/chat.js';
+            import { initUI } from './js/ui.js';
+            import { initStorage } from './js/storage.js';
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                initStorage();
+                initUI();
+                initChat();
+                
+                // 添加欢迎消息
+                addMessage("你好！我是你的AI生活教练。我可以帮助你解决生活中的困扰，提供情感支持和行动建议。让我们开始对话吧！", false, true);
+            });
+        </script>
     </script>
     
     <!-- 移除这行，因为已经在上面导入了 -->
