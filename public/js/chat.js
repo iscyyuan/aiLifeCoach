@@ -48,26 +48,39 @@ export async function sendMessage() {
         addMessage(message, true);
         userInput.value = '';
         
-        // 发送到服务器
+        // 添加超时设置
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        
         const response = await fetch('/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ message }),
+            signal: controller.signal
         });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         
         const data = await response.json();
         if (data.error) {
             throw new Error(data.error);
         }
         
-        // 添加 AI 响应
         addMessage(data.response, false);
         
     } catch (error) {
         console.error('发送消息失败:', error);
-        addMessage('抱歉，发生了错误，请稍后重试。', false);
+        let errorMessage = '抱歉，发生了错误，请稍后重试。';
+        if (error.name === 'AbortError') {
+            errorMessage = '请求超时，请稍后重试。';
+        }
+        addMessage(errorMessage, false);
     } finally {
         isProcessing = false;
         checkButtonState();

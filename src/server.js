@@ -43,7 +43,7 @@ app.post('/chat', async (req, res) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${API_KEY}`
             },
-            timeout: 60000
+            timeout: 30000  // 修改为 30 秒
         });
 
         if (!response.data) {
@@ -61,12 +61,12 @@ app.post('/chat', async (req, res) => {
 
         res.json({ response: aiResponse });
     } catch (error) {
-        console.error('详细错误信息:', error);
+        console.error('API 错误:', error);
         
-        res.status(500).json({ 
-            error: '服务器错误',
-            details: error.message || '未知错误',
-            ...(error.response?.data && { apiError: error.response.data })
+        // 改进错误处理
+        const errorMessage = error.response?.data?.error || error.message || '服务器错误';
+        res.status(error.response?.status || 500).json({ 
+            error: errorMessage
         });
     }
 });
