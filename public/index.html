@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Life Coach</title>
-    <!-- 将原来的 styles.css 替换为 main.css -->
+    <!-- 添加这行 -->
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="css/main.css">
-    <!-- 在其他标签后添加 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -65,7 +65,8 @@
     <script type="module">
         import { sendMessage, loadConversation } from './js/chat.js';
         import { updateConversationList } from './js/ui.js';
-        import { generateStats } from './js/emotion.js';
+        // 删除这行
+        // import { generateStats } from './js/emotion.js';
         
         document.addEventListener('DOMContentLoaded', () => {
             // ... 初始化代码
