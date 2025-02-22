@@ -6,7 +6,7 @@ import { updateStats } from './stats.js';
 let chatMessages, userInput, sendButton;
 let isProcessing = false;  // 添加状态标志
 
-// 确保导出需要的函数
+// 确保导出这些函数
 export function initChat() {
     chatMessages = document.getElementById('chatMessages');
     userInput = document.getElementById('userInput');
