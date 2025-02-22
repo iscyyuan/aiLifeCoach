@@ -43,7 +43,7 @@ app.post('/chat', async (req, res) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${API_KEY}`
             },
-            timeout: 30000  // 修改为 30 秒
+            timeout: 60000  // 修改为 60 秒
         });
 
         if (!response.data) {

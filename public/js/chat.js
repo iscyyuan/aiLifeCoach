@@ -49,8 +49,9 @@ export async function sendMessage() {
         userInput.value = '';
         
         // 添加超时设置
+        // 修改超时设置为 60 秒
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        const timeoutId = setTimeout(() => controller.abort(), 60000);
         
         const response = await fetch('/chat', {
             method: 'POST',
