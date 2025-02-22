@@ -1,0 +1,18 @@
+/* 响应式样式 */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .emotion-panel {
+        display: none;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+}

@@ -1,0 +1,158 @@
+/* 聊天相关样式 */
+.chat-messages {
+    padding: 20px;
+    /* 移除 flex 和 overflow 相关属性 */
+}
+
+.message {
+    position: relative;
+    width: fit-content;
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.message-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.message {
+    position: relative;
+    width: fit-content;
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.message-time {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    padding: 0 4px;
+}
+
+.user-message {
+    background: var(--primary-color);
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.user-message + .message-time {
+    text-align: right;
+}
+
+.ai-message {
+    background: #F5F5F7;
+    color: var(--text-primary);
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+}
+
+.ai-message + .message-time {
+    text-align: left;
+}
+
+/* 输入框区域固定在底部 */
+.chat-input {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-background);
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    min-height: 80px;
+}
+
+textarea {
+    flex: 1;
+    min-height: 48px;
+    max-height: 120px;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+    background: var(--background-color);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+#sendButton {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+#sendButton:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* 添加底部渐变阴影效果 */
+.chat-input::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+    pointer-events: none;
+}
+.ai-message {
+    background: #F5F5F7;
+    padding: 24px 28px;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.user-message {
+    background: var(--primary-color);
+    padding: 16px 20px;
+    font-size: 14px;
+}
+
+.message-time {
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.7;
+}
+
+/* 新增段落间距 */
+.ai-message .message-content p {
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+/* 优化换行显示 */
+.ai-message .message-content {
+    white-space: pre-line;
+}

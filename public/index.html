@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Life Coach</title>
+    <!-- 将原来的 styles.css 替换为 main.css -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- 在其他标签后添加 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="bot-profile">
+                <div class="bot-avatar">
+                    <!-- 使用内联 SVG 替代图片文件 -->
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-4-8c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm8 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm-4 5h-1v-1h1v1z"/>
+                    </svg>
+                </div>
+                <div class="bot-name">AI Life Coach</div>
+            </div>
+            <!-- 添加侧边栏切换按钮 -->
+            <button id="sidebarToggle" class="sidebar-toggle"></button>
+            <!-- 其他侧边栏内容 -->
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <h2>历史对话</h2>
+                </div>
+                <div class="sidebar-actions">
+                    <button id="newChatButton" class="action-button">
+                        <span class="icon">+</span> 新对话
+                    </button>
+                </div>
+                <!-- 添加会话列表容器 -->
+                <div id="conversationList" class="conversation-list">
+                    <!-- 历史对话将在这里动态插入 -->
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button id="exportButton" class="action-button">
+                    <span class="icon">↓</span> 导出数据
+                </button>
+                <button id="clearButton" class="action-button">
+                    <span class="icon">×</span> 清除历史
+                </button>
+            </div>
+        </div>
+    
+        <!-- 主聊天区域 -->
+        <div class="main-content">
+            <div id="chatMessages" class="chat-messages"></div>
+            <div class="chat-input">
+                <textarea id="userInput" placeholder="输入消息..."></textarea>
+                <button id="sendButton">发送</button>
+            </div>
+        </div>
+    </div>
+    <!-- 删除情绪分析面板部分 -->
+</div>
+    <!-- 在 body 末尾添加 -->
+    <script type="module">
+        import { sendMessage, loadConversation } from './js/chat.js';
+        import { updateConversationList } from './js/ui.js';
+        import { generateStats } from './js/emotion.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... 初始化代码
+        });
+    </script>
+    <!-- 替换为模块化引入 -->
+    <script type="module" src="js/main.js"></script>
+    
+</body>
+</html>
