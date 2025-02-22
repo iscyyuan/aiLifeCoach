@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/server.js",
+      "src": "api/**/*.js",
       "use": "@vercel/node"
     },
     {
@@ -20,20 +20,18 @@
       "dest": "/public/css/$1"
     },
     {
+      "src": "/chat",
+      "dest": "/api/server.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "src/server.js"
+      "dest": "/public/$1"
     }
   ],
   "regions": ["hkg1"],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "x-vercel-max-timeout",
-          "value": "60"
-        }
-      ]
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 60
     }
-  ]
+  }
 }
