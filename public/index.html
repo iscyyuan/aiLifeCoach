@@ -73,7 +73,21 @@
         });
     </script>
     <!-- 替换为模块化引入 -->
-    <script type="module" src="js/main.js"></script>
+    <!-- 在 body 末尾修改 -->
+    <script type="module">
+        import { initChat } from './js/chat.js';
+        import { initUI } from './js/ui.js';
+        import { initStorage } from './js/storage.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initStorage();
+            initUI();
+            initChat();
+        });
+    </script>
+    
+    <!-- 移除这行，因为已经在上面导入了 -->
+    <!-- <script type="module" src="js/main.js"></script> -->
     
 </body>
 </html>
