@@ -21,17 +21,12 @@
     },
     {
       "src": "/chat",
-      "dest": "/api/server.js"
+      "dest": "/api/server"
     },
     {
       "src": "/(.*)",
       "dest": "/public/$1"
     }
   ],
-  "regions": ["hkg1"],
-  "functions": {
-    "api/**/*.js": {
-      "maxDuration": 60
-    }
-  }
+  "regions": ["hkg1"]
 }
