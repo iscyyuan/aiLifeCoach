@@ -94,5 +94,17 @@
     <!-- 移除这行，因为已经在上面导入了 -->
     <!-- <script type="module" src="js/main.js"></script> -->
     
+    <!-- Single module script -->
+    <script type="module">
+        import { initChat } from './js/chat.js';
+        import { initUI } from './js/ui.js';
+        import { initStorage } from './js/storage.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initStorage();
+            initUI();
+            initChat();
+        });
+    </script>
 </body>
 </html>
