@@ -1,4 +1,6 @@
 require('dotenv').config();  // 添加这行在最上面
+export const maxDuration = 60;  // This function can run for a maximum of 60 seconds
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -51,7 +53,7 @@ app.post('/chat', async (req, res) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${API_KEY}`
             },
-            timeout: 60000  // 修改为 60 秒
+            timeout: 55000  // 设置为55秒，留5秒处理时间
         });
 
         if (!response.data) {
