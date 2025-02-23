@@ -13,35 +13,6 @@ export function saveToHistory(content, isUser) {
     return message;
 }
 
-export function saveCurrentConversation() {
-    const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
-    if (history.length === 0 || (history.length === 1 && !history[0].isUser)) return;
-
-    const conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
-    const firstUserMessage = history.find(msg => msg.isUser);
-    if (!firstUserMessage) return;
-    
-    const conversationExists = conversations.some(conv => 
-        JSON.stringify(conv.messages) === JSON.stringify(history)
-    );
-
-    if (!conversationExists) {
-        conversations.unshift({
-            id: Date.now(),
-            title: firstUserMessage.content.substring(0, 20) + '...',
-            messages: [...history],  // 使用展开运算符创建新数组
-            timestamp: new Date().toISOString()
-        });
-        localStorage.setItem('conversations', JSON.stringify(conversations));
-        updateConversationList();  // 保存后立即更新列表
-    }
-}
-
-export function clearAllHistory() {
-    localStorage.removeItem('chatHistory');
-    localStorage.removeItem('conversations');
-}
-
 export function initStorage() {
     // 初始化本地存储
     if (!localStorage.getItem('conversations')) {
@@ -51,8 +22,47 @@ export function initStorage() {
         localStorage.setItem('chatHistory', '[]');
     }
     
+    // 确保会话列表正确加载
+    const conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
+    if (conversations.length > 0) {
+        localStorage.setItem('conversations', JSON.stringify(conversations));
+    }
+    
     // 初始化历史会话列表
     updateConversationList();
+}
+
+export function saveCurrentConversation() {
+    const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+    if (history.length === 0 || (history.length === 1 && !history[0].isUser)) return;
+
+    const conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
+    const firstUserMessage = history.find(msg => msg.isUser);
+    if (!firstUserMessage) return;
+    
+    // 添加更严格的重复检查
+    const conversationExists = conversations.some(conv => 
+        conv.messages && 
+        conv.messages.length === history.length && 
+        JSON.stringify(conv.messages) === JSON.stringify(history)
+    );
+
+    if (!conversationExists) {
+        const newConversation = {
+            id: Date.now(),
+            title: firstUserMessage.content.substring(0, 20) + '...',
+            messages: JSON.parse(JSON.stringify(history)), // 深拷贝
+            timestamp: new Date().toISOString()
+        };
+        conversations.unshift(newConversation);
+        localStorage.setItem('conversations', JSON.stringify(conversations));
+        updateConversationList();
+    }
+}
+
+export function clearAllHistory() {
+    localStorage.removeItem('chatHistory');
+    localStorage.removeItem('conversations');
 }
 
 export function startNewChat() {
