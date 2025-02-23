@@ -1,7 +1,7 @@
 import { saveCurrentConversation } from './storage.js';
 import { updateConversationList } from './ui.js';
 import { addMessage } from './chat.js';
-import { updateStats } from './stats.js';
+// import { updateStats } from './stats.js';  // 暂时注释掉
 
 export function initConversations() {
     const newChatButton = document.getElementById('newChatButton');
@@ -11,8 +11,7 @@ export function initConversations() {
 
     // 初始化时立即更新会话列表
     updateConversationList();
-    // 初始化时更新统计
-    updateStats();
+    // updateStats();  // 暂时注释掉
 
     newChatButton.addEventListener('click', () => {
         const currentHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
@@ -23,7 +22,7 @@ export function initConversations() {
         chatMessages.innerHTML = '';
         addMessage("你好！我是你的AI生活教练。我可以帮助你解决生活中的困扰，提供情感支持和行动建议。让我们开始对话吧！", false, true);
         updateConversationList();
-        updateStats(); // 添加这行来更新情绪统计
+        // updateStats();  // 暂时注释掉
     });
 
     clearButton.addEventListener('click', () => {

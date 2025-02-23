@@ -1,16 +1,24 @@
 import { analyzeEmotion, getEmotionAdvice } from './emotion.js';
 
 export function initStats() {
-    // 移除原有的按钮事件监听
-    generateStats(); // 初始化时生成统计
+    generateStats();
 }
 
-// 添加新的实时更新函数
 export function updateStats() {
+    // 检查元素是否存在
+    if (!document.getElementById('moodSummary')) {
+        return; // 如果元素不存在，直接返回
+    }
     generateStats();
 }
 
 function generateStats() {
+    // 检查必要的 DOM 元素
+    const moodSummary = document.getElementById('moodSummary');
+    if (!moodSummary) {
+        return; // 如果元素不存在，直接返回
+    }
+
     const conversations = JSON.parse(localStorage.getItem('conversations') || '[]');
     const currentHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
     
@@ -22,7 +30,7 @@ function generateStats() {
     const userMessages = allMessages.filter(msg => msg.isUser);
     
     if (userMessages.length === 0) {
-        document.getElementById('moodSummary').innerHTML = '<p>暂无对话记录可供分析</p>';
+        moodSummary.innerHTML = '<p>暂无对话记录可供分析</p>';
         return;
     }
 
