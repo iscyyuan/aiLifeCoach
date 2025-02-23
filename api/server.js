@@ -1,9 +1,11 @@
 require('dotenv').config();  // 添加这行在最上面
-export const maxDuration = 60;  // This function can run for a maximum of 60 seconds
+// 移除 export 语句，改用 module.exports
+const maxDuration = 60;  // This function can run for a maximum of 60 seconds
 
+// 修改导入方式
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
+const { default: axios } = require('axios');  // 修改 axios 导入方式
 const path = require('path');
 
 const app = express();
