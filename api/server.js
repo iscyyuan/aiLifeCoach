@@ -11,7 +11,7 @@ const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '../public')));
 
 // 使用环境变量
 const API_KEY = process.env.API_KEY;
