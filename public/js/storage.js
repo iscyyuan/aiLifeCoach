@@ -1,4 +1,6 @@
 // 存储相关功能
+import { updateConversationList, createMessageElement } from './ui.js';
+
 export function saveToHistory(content, isUser) {
     const history = JSON.parse(localStorage.getItem('chatHistory') || '[]');
     const message = {
@@ -39,9 +41,6 @@ export function clearAllHistory() {
     localStorage.removeItem('conversations');
 }
 
-import { updateConversationList } from './ui.js';
-import { createMessageElement } from './ui.js';
-
 export function initStorage() {
     // 初始化本地存储
     if (!localStorage.getItem('conversations')) {
@@ -53,15 +52,9 @@ export function initStorage() {
     
     // 初始化历史会话列表
     updateConversationList();
-    
-    // 绑定按钮事件
-    document.getElementById('exportButton').addEventListener('click', exportData);
-    document.getElementById('clearButton').addEventListener('click', clearHistory);
-    document.getElementById('newChatButton').addEventListener('click', startNewChat);
 }
 
-// 添加新会话功能
-function startNewChat() {
+export function startNewChat() {
     localStorage.setItem('chatHistory', '[]');
     const chatMessages = document.getElementById('chatMessages');
     if (chatMessages) {
@@ -80,7 +73,7 @@ function startNewChat() {
     updateConversationList();
 }
 
-function clearHistory() {
+export function clearHistory() {
     if (confirm('确定要清除所有历史记录吗？此操作不可恢复。')) {
         localStorage.setItem('conversations', '[]');
         localStorage.setItem('chatHistory', '[]');
@@ -89,7 +82,7 @@ function clearHistory() {
     }
 }
 
-function exportData() {
+export function exportData() {
     const data = {
         conversations: JSON.parse(localStorage.getItem('conversations') || '[]'),
         chatHistory: JSON.parse(localStorage.getItem('chatHistory') || '[]')

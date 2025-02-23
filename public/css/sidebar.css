@@ -264,18 +264,18 @@
     background: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-}
-.sidebar.collapsed .sidebar-toggle::before {
-    content: '▶';
+    z-index: 1000;
 }
 .sidebar-toggle::before {
-    content: '◀';
+    content: "◀";
     font-size: 12px;
+}
+.sidebar.collapsed .sidebar-toggle::before {
+    content: "▶";
 }
 .sidebar.collapsed .conversation-title,
 .sidebar.collapsed .conversation-time,
