@@ -1,7 +1,6 @@
-import { saveCurrentConversation } from './storage.js';
+import { saveCurrentConversation, startNewChat } from './storage.js';
 import { updateConversationList } from './ui.js';
 import { addMessage } from './chat.js';
-// import { updateStats } from './stats.js';  // 暂时注释掉
 
 export function initConversations() {
     const newChatButton = document.getElementById('newChatButton');
@@ -11,18 +10,13 @@ export function initConversations() {
 
     // 初始化时立即更新会话列表
     updateConversationList();
-    // updateStats();  // 暂时注释掉
 
     newChatButton.addEventListener('click', () => {
         const currentHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
         if (currentHistory.some(msg => msg.isUser)) {
             saveCurrentConversation();
         }
-        localStorage.removeItem('chatHistory');
-        chatMessages.innerHTML = '';
-        addMessage("你好！我是你的AI生活教练。我可以帮助你解决生活中的困扰，提供情感支持和行动建议。让我们开始对话吧！", false, true);
-        updateConversationList();
-        // updateStats();  // 暂时注释掉
+        startNewChat();  // 使用 storage.js 中的函数
     });
 
     clearButton.addEventListener('click', () => {

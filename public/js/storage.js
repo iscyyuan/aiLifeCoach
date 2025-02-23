@@ -29,10 +29,11 @@ export function saveCurrentConversation() {
         conversations.unshift({
             id: Date.now(),
             title: firstUserMessage.content.substring(0, 20) + '...',
-            messages: history,
+            messages: [...history],  // 使用展开运算符创建新数组
             timestamp: new Date().toISOString()
         });
         localStorage.setItem('conversations', JSON.stringify(conversations));
+        updateConversationList();  // 保存后立即更新列表
     }
 }
 
